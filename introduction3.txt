@@ -1,0 +1,69 @@
+#Controlled Components- Form elements whose value is controlled by react.
+When we assigned a handler to unchanged event, the event itself passed as a parameter to the handler.
+- State control the value of input element.
+
+(React_tutorial1)
+#Lifecycle methods
+When we create a react component, component goes through various stages in its lifecycle. React provides  various built-in methods that we can override at particular stages of lifecycle. These methods are available in class component not in functional component(but with hooks it can work in functional component with lifecycle hooks).
+Methods classified into 4 phases: 
+*Mounting- When an instance of a component is being created and inserted into the DOM. 4 methods are used: constructor, static getDerivedStateFromProps, render and componentDidMount.
+*Updating- When a component is being re-rendered as a result of changes to either of its props oer state. 5 methods are used: static getDerivedStateFromProps, shouldComponentUpdate, render, getSnapshotBeforeUpdate and componentDidUpdate.
+*Unmounting- When a component is being removed from the DOM. 1 method is used: componentWillUnmount
+*Error Handling- When there is an error during rendering, in a lifecycle method, or in the constructor of any child component.2 methods are used: static getDerivedStateFromError and componentDidCatch.
+
+
+#Mounting Lifecycle Methods
+1. Constructor(props): A special function that will get called whenever a new component is created.
+Uses- for initializing state or  binding the event handlers to class instance.
+DO NOT DO: Never make an HTTP request from within a constructor in this method.
+Points to remember when define your own constructor- 1. Call a special function Super()(Call a base class constructor)
+                                                     2. Constructor is the only place where you can directly overwrite the state using this.state.
+2.static getDerivedStateFromProps(props,state): - Rarely used.
+                                   - When the state of the component depends on changes in props over time.
+                                   - Due to static keyword, this method can't access this keyword.So we cannot call this.setState within this particular method 
+                                   instead you can simply return an object that represent the new state of the component. 
+Uses- We use this method to set the state of those component whose initial state is set according to the props passed to the component.
+DO NOT DO: Never make an HTTP request(fetching data from an endpoint)in this method.
+3. Render():- Only required in react component.
+            - In render method, we read this.props and this.state and return JSX which describes UI.
+            - It also contains the children components so after the execution of parent render method, children lifecycle methods are also executed. 
+   DO NOT DO: do not change state or interact with DOM or make AJAX calls in this method.
+4. componentDidMount(): -It is called only once in a lifestyle of a component.
+                        -It invoked immediately after a component and all its children components have been rendered to the DOM.
+                        -In this method, interaction with DOM or perform any ajax calls to load data.
+
+#Updating Lifecycle Methods
+1. static getDerivedStateFromProps(props,state): - Rarely used in updating lifecycle.
+                                                 - Method is called every time a component is re-rendered.
+                                                 - It recieves props or state and return either null or an object of updated state. 
+Uses- When the state of the component depends on changes in props over time.
+ DO NOT DO:Should not cause any side effects: Ex-HTTP requests.                                                 
+2. shouldComponentUpdate(nextProps, nextState): - Rarely used in updating lifecycle.
+                                                - Receives updated props and state.
+                                                - It dictates if all the components should re-rendered or not.
+                                                - By default, all class components will re-rendered when there ia change in props or state, this method can prevent default behaviouer by returning false
+                                                - In this method we compare the current props and state value with nextprops and nexstate value and return true or false.
+                                                - Basically for performance optimization.
+DO NOT DO: should not cause side effects. Ex: HTTP requests, calling the setState method.
+3. render(): - Only required in react component.
+             - In render method, we read this.props and this.state and return JSX which describes UI.
+DO NOT DO: do not change state or interact with DOM or make AJAX calls in this method.
+4. getSnapshotBeforeUpdate(prevProps, prevState): - Called right before the changes from the virtual DOM are to be reflected in the DOM.
+                                                  - Rarely used.
+                                                  - Method will either return null or return a value. Returned value will be  passed as the third parameter to the next method.
+Uses: To capture information from the DOM. EXample- You can read the user scroll position and after the update maintain that scroll position  by performing some calculations.
+5. componentDidUpdate(prevProps, prevState, snapshot): - Called after the render is finished in the re-render cycles.
+                                                       - recieves 3 parameter:- prevProps, prevState, snapshot received from previous method.
+                                                       - This  is called only once in re-render cycle.
+DO: You can cause side effects. Ex- Make AJAX calls. Before making any ajax calls, compare the prev Props with new props and then decide whether to make an ajax call or not.                                                       
+
+#Unmounting Phase Method
+1. componentWillUnmount(): - Method is invoked immediately before a component is unmounted and destroyed.
+                           - In this method you can perform some clena up tasks like,cancelling any network requests, removing event handlers, cancelling any subscriptions and also invalidating timers from setTimeout and setInterval.
+                           - Don not call the setState Method because component will never rerender when it is ummounted.
+
+#Error Handling Phase method
+1. static getDerivedStateFromError(error)
+2. componentDidCatch(error,info)
+
+Both of these methods are called when there is an error either during rendering, in the lifecycle method, or in the coonstructor of any child component.

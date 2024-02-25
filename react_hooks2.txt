@@ -1,0 +1,44 @@
+#Context API: Context provides a way to pass data through the component tree  without having to pass props down manually at every level.
+First 2 steps of creating and providing context value at high level of component tree is same as class component.
+In last step we simply import userContext from react , used it to import context from app component and use it further.
+
+
+#useReducer:
+1. It is a hook used for state management. 
+2. Alternative to useState.
+3. Difference between useReducer and useState
+    - useState is built using useReducer(primitive to useState)
+
+4. When to use useState and when to use useReducer
+    Scenario                                useState                                     useReducer
+    type of state                   Number,String, Boolean                           Object or array
+    No. of state transitions           1 or 2                                          too many 
+    Related State transitions          No                                              Yes
+    Buisness logic                  no buisness logic                               Complex buisness logic   
+    (for state transitions)
+    Local vs global state                local                                       global
+
+Reduce method of javascript:
+The reduce() method executes a reducer function (that you provided) on each element of the array, resulting in a single output value.
+It accepts two parameter - reducer function and initial value that reducer function can use.
+reducer fuction accepts two parameters and reduce them to a single value and returns the value.
+const array= [1,2,3,4];
+const reducer= (accumulator, currentValue)=>accumulator+ currentValue;
+
+console.log(array1.reduce(reducer)); //output=10
+console.log(array1.reduce(reducer,5)); //output=15
+
+Difference between reduce in javascript and useReducer in react
+1. reduce has two parameters-reducer function and initialValue for accumulator but useReducer has reducer function and initialState.
+2. reducer() in javascript has accumulator and itemValue nd returns singleValue but in useReducer, reducer function accepts currentState and action and returns newState. Action dictates the newState from currentState.
+3. reduce() method returns a single value but useReducer returns a pair of values[newState, dispatch](dispatch method which is basically used to specify the action). 
+4. simple state and action in file CounterUsingUseReducer and Complex state and action(state and action as Object) in file CounterUsingUseReducer2.
+5. Advantage of 2nd over 1st:
+    2 scenarios to concern: 1st: the value by which  we need to increment and decrement the counter. Consider we want to increment by 5, this can be done with if action is object. In that scenario we will pass value also.
+                                So we can say that by making action as an object, we can use additional data in the reducer function.
+                            2nd: Suppose you want to maintain 2 different states, it can be easily done if your state is an object.  you can simply add another property to your state.
+6. if you want to add two or more counters with same state transitions(increment, decrement) you can use multiple useReducers.
+#######Above use of useReducer is for local state management (i.e. within a single component)     but if we want to share state between different components(i.e. Global state management), we will combine useReducer with useContext. 
+
+#Consider we have counter in app component and pass to component at different levels in component tree.
+For this we will create  counter in app.js by useReducer hook and then we will provide and consume the counter context in the required components.

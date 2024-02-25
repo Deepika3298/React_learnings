@@ -1,0 +1,50 @@
+WHAT IS REACT-?
+Open source library for building user interface, not a framework.
+focus on UI. (not on routing and http request).
+capable to interact with other libraries for routing and http request.
+WHY LEARN REACT ?
+1. created and maintained by facebook. many companies uses it for their frontend so it will not disappear soon. 
+2. huge community  used it.
+3. in demand skillset.
+TECHNICAL ASPECT OF USING IT?
+1. Component based architecture- our application can be decomposed into small components or small parts which on composition produce rich UI.
+2. Reusable code- components can be reused in another languages like angular, vue just by adding right data.
+3. Declarative- 1. tell react what you want and react dom will build the actual UI.
+                2. react will handle efficiently updating and rendering of the components when we change the data.
+                3. Dom updates are easy in react.
+FLOW OF REACT APP- npm start->html file loads in browser-> index.js-> app compnent-> Html display on browser.
+
+COMPONENTS- These are independent and reusable bits of code. They serve the same purpose as javascript functions, but working in isolation and return HTML.
+A part of the user interface.
+They are re-usable and can be nested inside other components.
+COMPONENTS TYPES-
+Functional Component: These are javascript functions which return html that describes UI.
+function welcome(props){
+    return <h1>Hello, {props.name}</h1>;
+}
+1.it receives object of properties and return html(jsx) which describe UI. 
+
+
+
+Class Component: These are regular ES6 classes that extend component class from react library. They must contain render method  which returns HTML.
+class Welcome extends React.component{
+    render(){
+        return <h1>Hello, {this.props.name}</h1>;
+    }
+}
+1. it also recieves an object of properties(optionally) and returns html.
+2. class component also maintain private internal state.(means it maintain some information that is private to that component and use that information to describe the UI.) 
+
+ 
+Difference between  function and class  component
+Functional component-
+1. Simple functions receive properties and return HTML.
+2. You can use it as much as possible.
+3. Advantages-Absence of 'this' keyword.
+              Solution without using state.
+              Mainly responsible for the UI.
+              state and hooks can be used in functional class component also.(now )
+Class component- 
+1. More Feature rich.
+2. can maintain own private data called state.
+3. Has complex UI logic and provide lifecycle Hooks.(That's why they are called smart/stateful/container components)               

@@ -1,0 +1,31 @@
+#Higher-order Components(withcounter.js, ClickCounter.js, HoverHeading.js )- A pattern where a function takes a component as an argument and returns a new or enhanced component.
+const NewComponent(EnchancedComponent)= higherOrderComponent(originalComponent)
+- HOC adds additional data or functionality to the original component.
+-It help us to share common functionality between components.
+- Passing props from App component: When we pass props to ClickCounter in app.js, it will not appear in ClickCounter because it pass down to withCounter(HOC). So to pass it to ClickCounter, we need to pass props from HOC using spread operator {...this.props}.
+Spread operator will pass all rest of the props to the ClickCounter.
+- you can pass parameter to  the HOC function.
+
+#Render Props:(user.js, hoverCounter.js, ClickCounterTwo.js, counter.js) 
+- Used to share common functionality between components. 
+- Always Remember- In react it is possible to use a prop whose value is function to control what is actually render by the component. Render props pattern is based on this concept.
+- Render Props: It refers to a technique for sharing code between react components using a prop whose value is a fuction.
+
+#Context API:(ComponentC, ComponentE, ComponentF)
+- Context provides a way to pass data through the component tree without having to pass props down manually at every level.
+Example: 
+Steps: 1. Create the context. (userContext.js)
+       2. Provide a context value.
+       3. Consume the context value in necessary components. 
+Note: 1. Every context created with createContext() comes with  provider and consumer components. We will export these components.
+      2. You can set the default value to your context while creating context. It is passed an argument to createContext() method. Default value will only be
+         used when a component does not have a matching provider above it in the component tree.
+      3. Context type property:(ComponentE)   
+         steps: 1. export userContext
+                2. Use in the component using contextType(ComponentE).
+                3. Context can be used in the component  using this.context.
+         Limitations : 1. Works only with class component.
+                       2. You can read only one context using contextType.
+
+#React and HTTP
+We can make Ajax calls and Api calls using Http libraries.                              

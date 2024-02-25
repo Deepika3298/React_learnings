@@ -1,0 +1,76 @@
+#FRAGMENTS
+- Fragments allow us to group a list of children elements without adding extra nodes to the DOM.
+- You can use key attributes with Fragments when rendering a list of items.
+- With Shorthand syntax, we can't add key attributes.
+
+#Pure Component- PureCmp.js, RegularCmp.js, Parent Cmp.js 
+* A Pure component implements shouldcomponentUpdate with a shallow props and State comparison. Shallow comparison of prevState with currentState or prevProps with currentProps  gives difference then only pure component will re-render.
+* If you use pure component, always use pure components as children component to avoid unexpected behaviour.
+USES: Pure Components prevent re-rendering of unnecessary renders which increase the performance boost.
+NOTE: we can't mutate objects and arrays in props and state in case of pure component. Always create new one to reflect the new state. 
+*difference between pure component class and component class.
+1. A regular component does not implement the shouldComponentUpdate method. It always return true by default. Pure component, on the other hand, implements shouldComponentUpdate with a shallow props and state comparison. 
+   (Shallow Comparison and deep comparison:Shallow comparison checks if two objects have the same memory location, 
+   while deep comparison checks if two objects have the same values for their properties.)
+    ##Shallow Comparison: 
+    Primitive types(Number, Strings, Boolean): a (SC) b returns true if a and b have the same value and are of the same type.
+    Ex: string 'Vishvas' (sc) string 'Vishvas' returns true.
+    Complex types(Arrays, Objects): a (SC) b returns true if a and b reference the exact same object. 
+    Ex: var a=[1,2,3];                                          var a={x:1, y:2};
+        var b=[1,2,3];                                          var b={x:1, y:2};
+        var c=a;                                                var c=a;
+        var ab_eq= (a===b); //return false                      var ab_eq= (a===b); //return false
+        var ab_eq= (a===c); //return true                       var ab_eq= (a===c); //return true
+
+
+#Memo(MemoComp.js): it act as pure component in functional component.
+React.memo is used to prevent rendering. It accepts component , add some things to component and return a new enhanced component.(high Order Component)
+
+#Refs
+Refs make it possible to access dom nodes directly within react.
+
+1st Way of creating and accessing refs=>
+Use cases: of input field, 1st. by using refs as soon as page is loaded the input field is focused. We can do this by 3 simple steps:
+1. Create Ref using react.createRef() method.
+2. Attach this ref to input element in render method.
+3. Call focused method on this input element.
+2nd. to fetch the input value
+
+2nd way of set refs=> Callback refs
+Example: focus the input element
+4 steps:
+1. Create ref - Create property and assign value null.
+2. We create a method which assign a Dom element to ref.
+3. Attach ref to the input element.
+4. Call focused element on this input element
+
+Note: react will call  the ref callback with the Dom eleement when component mounts and call it with null when component unmount. So, it is necessary to check if value exists in ref property nd it is not null.
+
+#Add ref to a class component.
+ Input.js and FocusInput.js
+
+#Refs Forwarding: Automatically  forwarding of Ref from parent component to child component. 
+STEPS:
+1. Create ref in the parent component.
+2. attach ref to the child component using ref attribute.
+3. Forward ref to the input element in the child component. Forwarding can be achieved by using forward draft method from react library. 
+
+#Portals- With Portals, we can render those children into Dom nodes that exist outside the Dom hierarchy of Parent Component.
+        - It provides the ability to break out of Dom tree so you can render a component onto a Dom node that is not under this root element.
+Process: 1. Create div with id portal-root in index.html file. (Create Dom node outside the root element)
+         2. Create new Component named PortalsDemo and add into app.js.
+         3. We use ReactDom.createPortal() to insert this component under the portal-root node. For this we need to import React Dom Package.
+         4. Next, instead of Simply returning the jsx, we return ReactDom.createPortal() method. It takes 2 parameters- 1st jsx you want to render, 2nd Dom node to mount the element on to(Using document.getElementById('id_name')).
+            !st parameter can be any element that react can render.
+Why we need Portals: Use Case- To deal with Parent Component CSS when child component is model or pop-up or tooltip. https://codesandbox.io/s/00254q4n6p?file=/src/index.js .
+                             - Event bubbling: Portal can be anywhere in the Dom tree it behaves like normal react child in every other way. This include event bubbling
+                                               so an event fired from inside a portal will propagate to ancestors in the containing react tree even if those elements are not 
+                                               ancestors in the Dom tree. https://codepen.io/gaearon/pen/jGBWpE  .    
+
+
+
+#Error Handling Phase Methods- A class component that implements either one or both of the lifecycle methods  getDerivedStateFromError or componentDidCatch.
+- Catch the Javascript errors in the component tree, log those errors and display a fallback UI . 
+- static getDerivedStateFromError method is used to render a fallback UI after an error is thrown and the componentDidCatch method is used to log the error information.  
+- It doesn't catch errors in event handlers(We have to use try and catch block in it).
+- The placement of the Error Boundary also matters as it controls if the entire app should have the fall-back UI or just the component causing the problem.

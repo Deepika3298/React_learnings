@@ -1,0 +1,64 @@
+HOOKS: - Added in version 16.8
+       - Allow you to use react features without having to write a class. Ex: State of a component.
+       - Hooks don't work inside classses.
+Why?
+Reasons set 1:
+We need to: 1. Understand how this keyword works in javascrit.
+            2. Remember to bind event handlers to class components.
+            3. Class don't minify very well and make hot reloading very unrealiable.
+With Hooks, we are not using classes, so we will not face this problems.
+Reason set 2:
+   There is no way to reuse stateful component logic. High Order Components and Render Props help in this but it makes the code complex and we have to restructure the code in different component and wrapp other components in it.
+   So the need of sharing stateful logic in better way is done by Hooks without changing your component hierarchy. 
+Reason Set 3: 
+   It is difficult to create components for complex scenarios such as data fetching and subscribing to events.
+   -Related code rather than organizing in one place it scattered in diferent lifecycle method. 
+      Ex- Data Fetching code split in componentDidMount and componentDidUpdate.
+        - We can set event listeners in componentDidMount and unsubscribe in componentWillUnmount.
+   - Completely different code can be placed in same lifecycle method. Ex- data fetching and event listeners in componentDidMount.
+   Because of stateful logic, we cannot break this components into smaller one.
+   Hooks solve this problem. Rather than splitting the code into different lifecycle method ,  it split the components in smaller functions based on what code are related.
+   
+useState Hook:(HookCounter.js) 
+1.It is used to add state to functional components.
+2.Hooks are function so we simply call them.
+3.In classes, the state is always an object. With the useState hook, the state doesn't have to be an object. It can be array, number, string, object     
+Note:  The destructuring assignment syntax is a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables.
+useState Hooks take one argument- Initial value of state and returns an array with 2 elements, the first element is the current value of the state property and the second element is method that is capable of changing state or state setter function. 
+Rules of Hooks:
+1. Only call Hooks at the Top level.Don't call Hooks inside loops, conditions, or nested functions.
+2. Only call Hooks from React functions(functional components) and not just any regular Javascipt function.
+
+#useState with prevstate(HookCounterTwo.js) - if new state value depennds on previous state value, You can pass a function to the setter function.
+
+#useState with object(HookCounterThree.js) - useState doesn't automatically merge and update the object. We have to do manually(By spread operator). This is different from setState in class component.
+#useState with Arrays(HookCounterFour.js) - In case of array, setter function don't automatically append items into last of array. we have to do manually by spread operator.  
+
+
+useEffect Hook: (CounterHookUsingUseEffect.js)
+- It is a function. It runs after every render of the component but sometimes it creates a problem. So we will apply condition to run useEffect . in order to conditionally run an effect specify 2nd parameter-an array to useEffect. 2nd parameter is an array of Values that effects depends on. If the values don't change between renders, the effect is simply not run. For example in our case it is count value.(ClassCounter.js for class component and CounterHookUsingUseEffect for functional component )
+- It is placed inside the component so that we can easily access the components state and props without having to write any additional code.
+- It helps you to perform side-effects in functional components- like rather then placing the code of timer in two diffferent lifecycle method(setInterval in componentDidMount and clearInterval in componentWillUnmount) , it help to group together the related code. It also helps us to prevent writing the same code in two different lifecycle methods. 
+- It is a close replacement for componentDidMount, componentDidUpdate and componentWillUnmount.
+- It accept function as an argument which is executed by react every time the component renders.  
+-  componentDidMount mimic using useEffect- In class component, we can setup event-listener only once using componentDidMount. In functional component, to run useEffect only once, we specify second parameter as empty array. This tells react thet this effect doesn't depend on any props or state, so there is no reason to call this effect on every re-render.
+- componentWillUnmount mimic using useEffect(HookMouse.js)(ClassMouse.js for class component)
+- useEffect with incorrect dependency(IntervalClassCounter.js for class component) 
+Note: Sometime you want to call function inside useEffect, if we define function outside the useEffect, we forget someprops is a dependency(someprops is used in doSomething which is called in useEffect)
+function doSomething(){
+        console.log(someprops)
+    }
+So it is recommended if you want to call function in useEffect always define function in useEffect, so when we read the useEffect we remember that someProps is dependency.  
+# It is possible to call multiple useEffects in single component. Using it, we can put related code in one useEffect and unrelated code in different useEffects. 
+
+
+How to fetch data from API endpoint:(DataFetching.js)
+ using axioms
+
+To fetch data with posts id:(DataFetchingId.js)
+1. Create input element that will accept posts id from the user. This is controlled component means we need to assign the value and use onChange event to assign the value back to the input element.
+   for this we have to use state variable.
+2. write ${id in url}
+nd some more little changes (check using files DataFetching.js and DataFetchingId.js)
+
+Trigger effect on button click: In previous one effect is triggered on changing data entered in input element , but better to do with button click.

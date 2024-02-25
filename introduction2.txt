@@ -1,0 +1,93 @@
+#Javascript XML
+=> Extension to Javascript language syntax.
+=> Write XML- like code for elements and components.
+=> just like XML, JSX have a tag name, attributes, and children.
+=> JSX is not necessarily to write react applictions, it just makes your code simpler and elegant.
+=> JSX ultimately transpiles to pure javascript which is understood by the browsers.(Transpiling is the process of taking source code written in one language and transforming into another language with same level of abstraction).
+
+
+#PROPS(Properties)=>
+Optional input that component can accept and it allows component to be dynamic.
+It is used to influence what is rendered on the screen.
+Props is an object that contains attributes and their values which have been passed from the parent component.
+Known properties can be passed as attribute(name and heroname) and unknown properties or dynamic html components are passed in between components tags(p tag).
+Helps in reusability of code.
+Props are immutable(value can't be changed).
+In class component, we use this keyword to access props and in functional component, props parameter is used to access props.
+
+#STATE=>
+It is used to influence what is rendered on the screen.
+Object that is privately maintained in the component and can be changed in the component.
+
+Do's and Dont's with state:
+1. Never modify state directly instead make use of setState.
+2. if you want to execute some code after the change of state always put that code in callback function not after setState method.
+3. If you want to update state based on previous state pass in a function as an argument instead of regular object.
+ 
+difference between props and state=>
+1. Props get passed to the component and state is managed within the component.
+2. Component analogy for props is function parameters and for state is variables declared in the function body.
+3. Props are immutable because parents own and passed it to the children and children can't change it whereas state is managed by the component so component has full control to change the state.
+4. In class component, we use this keyword to access props and in functional component, props parameter is used to access props whereas state in case of functional component can be accesssed using useState Hook and in class component, this.state .
+
+#DESTRUCTURING PROPS AND STATE:
+Destructuring allows to unpack values from arrays or properties from object into distinct variables. In react, destructuring props and state increases code readibility.
+# 2 ways to destruct props into functional components:
+1. To destructure in function parameter itself.
+2. To destructure in component body.
+# In class component, we destruct props in render method
+
+
+#Event handling:
+When user interacts with interface, events are fired.Example- mouse click, mouse hover, keypress,etc. The application must have to handle these events and execute the necessary code.
+1. Event names are written in camel case pattern not in lower case in react.
+2. In React function is passed as event handler rather than string.{ClassClick}not "ClassClick()".
+3. Always rememeber we pass function as event handler{ClassClick} to events not as function call(ClassClick()). because it will not work as events. If we do function call, it executes
+the function code before the button is clicked.
+
+#Binding event handlers:
+1. Bind keyword or bind event handler in render method-   <button onClick={this.eventHandler.bind(this)}>Click</button>. Every update to the state will cause the component to re-render.
+   This generates new event handler on every render. this will impact the performance of larger application or  components consists nested children components.
+2. Use Arrow method
+3. Binding Event handler in constructor- Used in official react documentation. Binding in constructor happens one so it is better approach than render method.
+4. Using class property as Arrow function- change the way of defining method in class.Also used in official react documentation.
+
+
+#Method as props-We can call method from parent compnent using button in child component through props.
+
+
+#Conditional Rendering
+1.if/else 
+2.Element variables- Use javascript variables to store element to be rendered.
+3.Ternary conditional operators- it can be used inside jsx (not 1,2)
+3.Short circuit operator- Specific case of Ternary conditional operator approach. When you want to render either something(when condition is true) or nothing(when condition is false).
+
+#ListRendering using map function
+When you have list of objects with few properties, refactor the jsx into separate component.
+
+#Lists and keys
+A key is a special string attribute you need to include when creating lists of elements.
+Keys give the stable identity to the elements.
+Each item in the list rendered using map operator should have a prop called key and its value should be unique within the list.
+key prop is not accessible in the child component.(Never use Key prop to render any data).
+Why keys are required??
+Keys help react to identify which items in a list changed, removed or added and place a crucial role in handling UI updates efficiently.
+# There will be a case when id is not provided and if we use name as key, it can be duplicacy in name, So  we use index as key.
+# Index as a Key will cause some serious UI issues in certain cases. EXample-inserted at start, inserted at end.
+When we use index as key:(All given are mandatory)
+1.The items in your list do not have a Unique id.
+2.The list is static list and will not change(we will not add or remove items from list)
+3. The list will never be reordered or filtered.(Example-sorted or filtered by user value)
+Note: Try avoiding using index as key.
+
+#Styling react components
+Various Ways:
+1. Css stylesheets
+2. Inline Styling- In react, Inline styles are not specified as string instead they are specified as object 
+   whose key is the camelcase version of style name and value is usually a string.
+3. CSS Modules- This feature is available with react script version 2 or above. There is a file name convention to be used for CSS modues with create react application
+   The file name must be suffixed with dot module dot CSS.
+   ADVANTAGE- Classes are locally scoped by default.
+   Example- regular css defined in the app.js can be used with child component if we apply it in child component but in css modules we reference the className 
+   with styles variable it cannot be used in children component.
+4. CSS in JS Libraries(Styled Components )

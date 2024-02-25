@@ -1,0 +1,32 @@
+useCallback hook:(ParentComponent.js, title.js, count.js, button.js-hooks_learning4)
+To improve performance we have to restrict rerenders to only those components that needs to rerender. (Refer the files example) To improve performance we use React.Memo
+React.Memo is a high order component that will prevent a functional component from being rerender if its props or state do not change.
+But it still has exception- button to increment salary also  rerender on incrementing age and vice versa. Because new salary function is created each time parent component rerender. To fix  this, we use callback hook.
+useCallback is a hook that will return a memoized version of the callback function that only changes if one of the dependencies has changed.
+Why- It is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders.
+
+useMemo(Counter.js-hooks_learnings4)
+in our example counter1 UI update is slow because in Ui we are rendering whether the number is odd or even and that logic is in isEven function(because of while loop) but counter2 Ui updates is also slow because every time state updates, component rerender and isEven function is called again.
+So we need to tell react not to recalculate the certain values  unnecessarily specially ones that take long time to compute. In our example we have to tell react not to check counter1 value is odd or even when counter2 value is changing. Here we useMemo Hook.
+useMemo is a Hook that will only compute the cached value when one of the dependencies has changed to avoid expensive calculations on every render.
+
+Difference between useCallback and useMemo
+usecallback caches the provided function instance itself whereas useMemo invokes the provided function and cashes its result.
+
+useRef: ## It makes possible to access DOM nodes directly within functional components.
+Example To understand: focusing Input element 
+Steps: 1. Import
+2. Create a ref variable
+3. Attach a ref variable to input element by reserved attribute ref.
+4. Call focus method on input element.
+
+Current- React set ref Current property to corresponding DOM node.
+## used to store any mutable value(HookTimer.js). It is used to create generic container which can hold mutable value similar to instance property of class variable. This generic containers doesn't cause rerenders when the data it stores changes. it also remeber the data, even other state variable cause rerenders of this component.
+ 
+
+CUSTOM HOOKS: It is basically a javascript function whose name starts with 'use'.
+It can also call other hooks if required.
+Why- 1. Help in sharing logic b/w 2 components- Alternative to HOCs and render props. 
+
+Example- if we want to update document title from 2 or more diferent components we can create same component but it leads to repeating the whole code again and again. Here custom hook is used which extracts the logic of updating document title and we can reuse same custom hook
+         in different components.(Folder Hooks in custom_hooks)
