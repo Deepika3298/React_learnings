@@ -22,9 +22,9 @@ function App() {
 
       {/* <Inline/> */}
 
-      {/* <h2 className='error'>Error</h2> */}
+      <h2 className='error'>Error</h2> 
       {/* css modules */}
-      {/* <h2 className={styles.success}>Success</h2> */}
+      <h2 className={styles.success}>Success</h2> 
 
       {/* FORM */}
       <Form/>
